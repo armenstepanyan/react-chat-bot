@@ -16,6 +16,6 @@ export interface ListItem {
 
 export interface AnswerItem {
     id: number;
-    question: string;
-    answer: Boolean | string;
+    name: string;
+    value: Boolean | string;
 }
