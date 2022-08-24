@@ -2,20 +2,33 @@ import React, { useEffect, useState, useCallback } from "react";
 import Options from "./Options";
 import { ListItem, ValueOption, AnswerItem } from "./interfaces";
 import ChoosenAnswers from "./ChoosenAnswers";
+import Preloader from "./Preloader";
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+
 
 function Chat() {
   const [list, setList] = useState<Array<ListItem>>([]);
-  const [isLoading, setisLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
   const [currentOption, setCurrentOption] = useState<ListItem | null>(null);
   const [ choosenAnswers, setChoosenAnswers ] = useState<Array<AnswerItem>>([]);
  
   
   const loadList = useCallback(async () => {
-    const res = await fetch(`https://raw.githubusercontent.com/mzronek/task/main/flow.json`);
-    const dataList = await res.json();
-    setisLoading(false);
-    setList(dataList);
-    setCurrentOption(dataList[0]);
+
+    try {
+        const res = await fetch(`https://raw.githubusercontent.com/mzronek/task/main/flow.json`);
+        const dataList = await res.json();
+        setIsLoading(false);
+        setList(dataList);
+        setCurrentOption(dataList[0]);
+    } catch (e) {
+        setError(true);
+        setIsLoading(false);
+        console.log(e)
+    }
+
   }, []);
 
   useEffect(() => {
@@ -38,17 +51,23 @@ function Chat() {
     setCurrentOption(nextOption);
 
   }
- 
+
+
+  const html = isLoading ? <Preloader /> : (  currentOption ? (<Options option={currentOption} onSelect={valueSelected}/>) : (<div>Finish</div>) )
+
   return (
     <>    
-      <h2> Chat bot</h2>
-      <div>
+    <Container sx={{ py: 2 }} maxWidth="md">
+         <Typography variant="h3">
+            Chat bot
+        </Typography>
+        { html }
+        { error && (<Typography variant="h4" sx={{ color: 'red' }}>
+           Unable to load data
+        </Typography>)}
         <ChoosenAnswers list={choosenAnswers}/>
-      </div>
-      { isLoading ? (<div>Loading....</div>) : ( 
-        currentOption ? (<Options option={currentOption} onSelect={valueSelected}/>) : (<div>Finish</div>)
-        ) 
-      }
+    </Container>
+      
       
     </>
   );
