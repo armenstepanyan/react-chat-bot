@@ -5,38 +5,21 @@ import ChoosenAnswers from "./ChoosenAnswers";
 import Preloader from "./Preloader";
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import useFetch from "./hooks/useFetch";
 
 
 function Chat() {
-  const [list, setList] = useState<Array<ListItem>>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
+
   const [currentOption, setCurrentOption] = useState<ListItem | null>(null);
-  const [ choosenAnswers, setChoosenAnswers ] = useState<Array<AnswerItem>>([]);
+  const [ choosenAnswers, setChoosenAnswers ] = useState<Array<AnswerItem>>([]); 
  
+  const { data: list, loading, error } = useFetch<Array<ListItem>>('https://raw.githubusercontent.com/mzronek/task/main/flow.json', null);
   
-  const loadList = useCallback(async () => {
-
-    try {
-        const res = await fetch(`https://raw.githubusercontent.com/mzronek/task/main/flow.json`);
-        const dataList = await res.json();
-        setIsLoading(false);
-        setList(dataList);
-        setCurrentOption(dataList[0]);
-    } catch (e) {
-        setError(true);
-        setIsLoading(false);
-        console.log(e)
-    }
-
-  }, []);
-
   useEffect(() => {
-    loadList();
-  }, [loadList])
-
+    setCurrentOption(list ? list[0] : null)
+  }, [list])
+ 
   const valueSelected = (selectedOption: ValueOption, question: string) => {
-
     const { nextId } = selectedOption;
     const nextOption = list.find(item => item.id === nextId) || null;
 
@@ -49,11 +32,10 @@ function Chat() {
          }
     ]))
     setCurrentOption(nextOption);
-
   }
 
 
-  const html = isLoading ? <Preloader /> : (  currentOption ? (<Options option={currentOption} onSelect={valueSelected}/>) : (<div>Finish</div>) )
+  const html = loading ? <Preloader /> : (  currentOption ? (<Options option={currentOption} onSelect={valueSelected}/>) : (<div>Finish</div>) )
 
   return (
     <>    
