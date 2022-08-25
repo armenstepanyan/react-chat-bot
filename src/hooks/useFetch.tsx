@@ -5,7 +5,7 @@ interface FetchOptions {
   body?: string;
 }
 
-function useFetch<T>( url: string, initialData: any,  options?: FetchOptions): { data: T; loading: boolean; error: boolean } {
+function useFetch<T>( url: string, initialData: any,  options?: FetchOptions, refetch?: boolean): { data: T; loading: boolean; error: boolean } {
   const [data, setData] = useState(initialData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -35,12 +35,14 @@ function useFetch<T>( url: string, initialData: any,  options?: FetchOptions): {
       })
       .then((res) => {
         setData(res);
+        setError(false);
       })
       .catch(() => {
+        setData(null);
         setError(true);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [refetch]);
 
   return { data, loading, error };
 }
