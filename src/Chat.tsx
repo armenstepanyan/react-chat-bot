@@ -6,6 +6,9 @@ import Preloader from "./Preloader";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import useFetch from "./hooks/useFetch";
+import Finish from "./Finish";
+import Error from "./Error";
+
 
 function Chat() {
   const [currentOption, setCurrentOption] = useState<ListItem | null>(null);
@@ -36,6 +39,7 @@ function Chat() {
 
   useEffect(() => {
     if (isLast) {
+      return;
       console.log("last item send");
       fetch('https://virtserver.swaggerhub.com/L8475/task/1.0.1/conversation', {
         method: 'PUT',
@@ -51,27 +55,17 @@ function Chat() {
     }
   }, [isLast]);
 
-  const html = loading ? (
+  const content = loading ? (
     <Preloader />
   ) : currentOption ? (
     <Options option={currentOption} onSelect={valueSelected} />
-  ) : (
-    <Typography variant="h5" sx={{ color: "rgb(25, 118, 210)" }}>
-      Herzlichen Dank für Ihre Angaben
-    </Typography>
-  );
+  ) : (<Finish />);
 
   return (
     <>
       <Container sx={{ py: 2 }} maxWidth="md">
         <Typography variant="h3">Chat bot</Typography>
-        {error ? (
-          <Typography variant="h4" sx={{ color: "red" }}>           
-            Unable to load data
-          </Typography>
-        ) : (
-          html
-        )}
+        {error ? (<Error message="Unable to load data"/>) :  content  }
         <ChoosenAnswers list={choosenAnswers} />
       </Container>
     </>
