@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import Typography from "@mui/material/Typography";
 
-const Error:FunctionComponent<{ message?: string }> = ({ message }) => {
+const ErrorBlock:FunctionComponent<{ message?: string }> = ({ message }) => {
   return (
     <Typography variant="h4" sx={{ color: "red" }}>           
        { message || 'Something went wrong' }
@@ -9,4 +9,4 @@ const Error:FunctionComponent<{ message?: string }> = ({ message }) => {
   )
 }
 
-export default Error
+export default ErrorBlock
