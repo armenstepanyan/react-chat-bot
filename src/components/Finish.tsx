@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import Typography from "@mui/material/Typography";
 import { Grow } from '@mui/material';
-import { AnswerItem } from './interfaces';
-import useFetch from './hooks/useFetch';
+import { AnswerItem } from '../interfaces';
+import useFetch from '../hooks/useFetch';
 import ErrorBlock from './ErrorBlock';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';

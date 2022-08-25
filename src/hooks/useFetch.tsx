@@ -13,9 +13,7 @@ function useFetch<T>( url: string, initialData: any,  options?: FetchOptions): {
   const { method = "GET", body = "" } = options || {};
 
   useEffect(() => {
-    console.log("send request");
     setLoading(true);
-
     const request$ = fetch(url, { method, ...(method !== "GET" && { body }) });
 
     request$

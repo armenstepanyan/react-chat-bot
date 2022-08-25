@@ -1,6 +1,6 @@
 export interface ValueOption {
-    nextId: number | Boolean;
-    value: Boolean | string;
+    nextId: number | boolean;
+    value: boolean | string;
     text: string;
 }
 
@@ -16,5 +16,5 @@ export interface ListItem {
 
 export interface AnswerItem {
     name: string;
-    value: Boolean | string;
+    value: boolean | string;
 }

@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import Options from "./Options";
-import { ListItem, ValueOption, AnswerItem } from "./interfaces";
+import { ListItem, ValueOption, AnswerItem } from "../interfaces";
 import ChoosenAnswers from "./ChoosenAnswers";
 import Preloader from "./Preloader";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import useFetch from "./hooks/useFetch";
+import useFetch from "../hooks/useFetch";
 import Finish from "./Finish";
 import ErrorBlock from "./ErrorBlock";
 
@@ -14,7 +14,7 @@ const START_ID = 100;
 function Chat() {
   const [currentOption, setCurrentOption] = useState<ListItem | null>(null);
   const [choosenAnswers, setChoosenAnswers] = useState<Array<AnswerItem>>([]);
-  const [isLast, setIsLast] = useState<Boolean>(false);
+  const [isLast, setIsLast] = useState<boolean>(false);
 
   const { data: list, loading, error } = useFetch<Array<ListItem>>( "https://raw.githubusercontent.com/mzronek/task/main/flow.json", []);
 

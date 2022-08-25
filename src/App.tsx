@@ -1,5 +1,5 @@
-import React , { useEffect, useState, useCallback } from 'react';
-import Chat from './Chat';
+import React from 'react';
+import Chat from './components/Chat';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -20,7 +20,6 @@ function App() {
         </Toolbar>
       </AppBar>
       <main>
-
       <Box
         sx={{
           bgcolor: 'background.paper',
@@ -29,9 +28,7 @@ function App() {
         }}
     >
       <Chat />
-      </Box>
-
-      
+      </Box>      
       </main>
       
     </div>

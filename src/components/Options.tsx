@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { ListItem, ValueOption } from "./interfaces";
+import { ListItem, ValueOption } from "../interfaces";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";

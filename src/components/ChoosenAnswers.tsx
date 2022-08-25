@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { AnswerItem } from "./interfaces";
+import { AnswerItem } from "../interfaces";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
