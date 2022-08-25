@@ -28,7 +28,7 @@ const Finish: FunctionComponent<{ list: Array<AnswerItem>; }> = ({ list }) => {
         Herzlichen Dank für Ihre Angaben      
       </Typography>
       <div>
-      { loading ? <Loader message='Sending data...'/> : (error ? <ErrorBlock message='Unable to send request'/> : "Success") }
+      { loading ? <Loader message='Sending data...'/> : (error ? <ErrorBlock message='Unable to send request'/> : "Success !") }
    
       </div>
     </div>

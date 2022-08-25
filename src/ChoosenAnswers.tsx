@@ -23,17 +23,15 @@ const ChoosenAnswers: FunctionComponent<Props> = ({ list }) => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Value</TableCell>
+              <TableCell>Question</TableCell>
+              <TableCell>Answer</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {list.map((row) => (
               <TableRow
-                key={row.id}                
+                key={row.name}                
               >
-                <TableCell>{row.id}</TableCell>
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>

@@ -9,6 +9,7 @@ import useFetch from "./hooks/useFetch";
 import Finish from "./Finish";
 import ErrorBlock from "./ErrorBlock";
 
+const START_ID = 100;
 
 function Chat() {
   const [currentOption, setCurrentOption] = useState<ListItem | null>(null);
@@ -18,20 +19,18 @@ function Chat() {
   const { data: list, loading, error } = useFetch<Array<ListItem>>( "https://raw.githubusercontent.com/mzronek/task/main/flow.json", []);
 
   useEffect(() => {
-    setCurrentOption(list ? list[0] : null);
+    // starting from given ID or first item
+    setCurrentOption(list.find(item => item.id === START_ID) || list[0] || null);
   }, [list]);
 
-  const valueSelected = (selectedOption: ValueOption, question: string) => {
+  // handle next or last option select
+  const valueSelected = (selectedOption: ValueOption, name: string) => {
     const { nextId } = selectedOption;
     const nextOption = list.find((item) => item.id === nextId) || null;
 
-    setChoosenAnswers((prev) => [
-      ...prev,
-      {
-        id: typeof nextId === "number" ? nextId : Date.now(),
-        name: question,
-        value: selectedOption.value,
-      },
+    // update selected anwswers table
+    setChoosenAnswers((prev) => [ ...prev,
+      { name, value: selectedOption.value },
     ]);
     setCurrentOption(nextOption);
     setIsLast(!nextOption);
@@ -42,7 +41,7 @@ function Chat() {
     <Preloader />
   ) : currentOption ? (
     <Options option={currentOption} onSelect={valueSelected} />
-  ) : isLast && (<Finish list={choosenAnswers}/>);
+  ) : isLast ? (<Finish list={choosenAnswers}/>) : (<Typography variant="body1">No items</Typography>);
 
   return (
     <>

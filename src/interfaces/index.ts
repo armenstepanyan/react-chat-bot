@@ -15,7 +15,6 @@ export interface ListItem {
 
 
 export interface AnswerItem {
-    id: number;
     name: string;
     value: Boolean | string;
 }
