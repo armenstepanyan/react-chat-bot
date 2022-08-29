@@ -19,8 +19,10 @@ function Chat() {
   const { data: list, loading, error } = useFetch<Array<ListItem>>( "https://raw.githubusercontent.com/mzronek/task/main/flow.json", []);
 
   useEffect(() => {
-    // starting from given ID or first item
+    if (list.length > 0) {
+      // starting from given ID or first item
     setCurrentOption(list.find(item => item.id === START_ID) || list[0] || null);
+    }
   }, [list]);
 
   // handle next or last option select

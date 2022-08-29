@@ -32,7 +32,7 @@ const Options: FunctionComponent<OptionProps> = ({ option, onSelect }) => {
           {option.text}
         </Typography>
 
-        <Stack direction="row" spacing={2} sx={{ py: 2 }}>
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ py: 2 }}>
           <Button
             variant="contained"
             onClick={() => selectOption(valueOptions[0])}
